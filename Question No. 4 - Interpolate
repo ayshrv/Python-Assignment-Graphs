@@ -7,7 +7,7 @@ class Interpolate:
         else:
             return (self.Lagrange(L,M,xlower,xupper))
     
-    def plotgraph(self,devang, xlower, xupper) :
+    def plotgraph(self,y_values, xlower, xupper) :
         def drange(start, stop, step):
             r = start
             while r < stop:
@@ -20,7 +20,7 @@ class Interpolate:
             x.append(xd)
         y=[]
         for x_val in x :
-            y.append(P.polyval(x_val, devang))
+            y.append(P.polyval(x_val, y_values))
         
         plt.plot(x, y,)
         plt.xlabel('values of x')
@@ -39,8 +39,8 @@ class Interpolate:
         result=array([0.0 for i in range(len(w)-1)])                    
         derivative=P.polyder(w)                                             
         for i in range(n):
-            devang=(P.polydiv(w,(-1*L[i],1))[0]*M[i])/P.polyval(L[i],derivative)
-            self.plotgraph(devang, xlower, xupper)
+            y_values=(P.polydiv(w,(-1*L[i],1))[0]*M[i])/P.polyval(L[i],derivative)
+            self.plotgraph(y_values, xlower, xupper)
             result+=(P.polydiv(w,(-1*L[i],1))[0]*M[i])/P.polyval(L[i],derivative)   
         return(list(result))                                                
     def Newton(self,L,M):                                                   
@@ -92,3 +92,5 @@ plt.plot(x, y,'k',linewidth='3')
 plt.xlabel('values of x')
 plt.ylabel('values of p(x)')
 plt.show()
+
+
